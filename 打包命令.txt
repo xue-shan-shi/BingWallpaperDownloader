@@ -1,0 +1,1 @@
+pyinstaller -w --onefile --icon=1.ico  bing壁纸下载器.py

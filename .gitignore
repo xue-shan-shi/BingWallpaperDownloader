@@ -1,0 +1,11 @@
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# PyInstaller 打包产物（可重现）
+build/
+dist/
