@@ -1,5 +1,7 @@
 # 必应壁纸下载器 (Bing Wallpaper Downloader)
 
+![Build EXE](https://github.com/xue-shan-shi/BingWallpaperDownloader/actions/workflows/build.yml/badge.svg)
+
 一个基于 Python + tkinter 的桌面小工具，用于**批量下载必应（Bing）每日壁纸**。支持按日期范围筛选、选择分辨率、多线程高速下载，并自动获取壁纸元数据。
 
 > 版本：v1.5 ｜ 图形界面（GUI）

@@ -1,0 +1,48 @@
+name: Build Windows EXE
+
+# 触发条件：推送到 master、打 v* 标签、或手动触发
+on:
+  push:
+    branches: [ master ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+# 允许工作流创建 Release（需要 contents: write）
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build EXE on Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout 代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller requests
+
+      - name: 用 PyInstaller 打包 EXE
+        run: pyinstaller -w --onefile --icon=1.ico "bing壁纸下载器.py"
+
+      - name: 上传构建产物 (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: BingWallpaperDownloader-exe
+          path: dist/*.exe
+
+      - name: 发布 Release（仅打标签时）
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
